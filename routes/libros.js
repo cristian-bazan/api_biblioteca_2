@@ -7,7 +7,7 @@ const libro = require("../models/Libro");
 const { requiredScopes } = require("express-oauth2-jwt-bearer");
 
 //Ruta para obtener todos los libros
-router.get("/", requiredScopes("read:libros"), async (req, res) => {
+router.get("/", requiredScopes("read:productos"), async (req, res) => {
     try {
         const libros = await libro.find();
         res.json(libros);
@@ -19,7 +19,7 @@ router.get("/", requiredScopes("read:libros"), async (req, res) => {
 });
 
 //Ruta para crear un libro
-router.post("/", requiredScopes("write:libros"), async (req, res) => {
+router.post("/", requiredScopes("write:productos"), async (req, res) => {
     try {
         const nuevoLibro = new libro(req.body);
         await nuevoLibro.save();
@@ -32,7 +32,7 @@ router.post("/", requiredScopes("write:libros"), async (req, res) => {
 });
 
 //Ruta para actualizar un libro existente
-router.put("/:id", requiredScopes("write:libros"), async (req, res) => {
+router.put("/:id", requiredScopes("write:productos"), async (req, res) => {
     try {
         const Libro = await Libro.findByIdAndUpdate(req.params.id, req.body,
             {
@@ -47,7 +47,7 @@ router.put("/:id", requiredScopes("write:libros"), async (req, res) => {
 });
 
 //Ruta para eliminar un libro existente
-router.delete('/:id', requiredScopes("write:libros"), async (req, res) => {
+router.delete('/:id', requiredScopes("write:productos"), async (req, res) => {
     try {
         await Libro.findByIdAndDelete(req.params.id);
         res.json({
